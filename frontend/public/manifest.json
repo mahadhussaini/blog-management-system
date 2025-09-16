@@ -1,0 +1,21 @@
+{
+  "short_name": "BlogManager",
+  "name": "Blog Management System",
+  "description": "A comprehensive MERN stack blog management system with user authentication and role-based access control",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#3B82F6",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["productivity", "business", "social"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
