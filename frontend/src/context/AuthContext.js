@@ -2,10 +2,12 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-// Set up axios defaults inside the provider to ensure window is available
-// When using Create React App proxy, use relative URLs to let the proxy handle routing
+// Set up axios defaults
 const isDevelopment = process.env.NODE_ENV === 'development';
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || (isDevelopment ? '' : 'http://localhost:5000');
+// In production, always use REACT_APP_API_URL. In development, use proxy (empty string) or fallback to localhost
+axios.defaults.baseURL = isDevelopment 
+  ? (process.env.REACT_APP_API_URL || '') 
+  : (process.env.REACT_APP_API_URL || 'http://localhost:5000');
 
 // Add token to requests if available
 axios.interceptors.request.use(

@@ -22,5 +22,5 @@ services:
       # - key: JWT_COOKIE_EXPIRE
       #   value: "7"
       # - key: FRONTEND_URL
-      #   value: https://your-frontend.vercel.app
+      #   value: https://blog-management-system-nu.vercel.app
 

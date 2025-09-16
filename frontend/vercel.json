@@ -13,7 +13,7 @@
     { "src": "/(.*)", "dest": "/index.html" }
   ],
   "env": {
-    "REACT_APP_API_URL": "https://your-backend.onrender.com"
+    "REACT_APP_API_URL": "https://blog-management-system-7qqg.onrender.com"
   }
 }
 

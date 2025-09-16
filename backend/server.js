@@ -42,6 +42,7 @@ const corsOptions = {
       'http://127.0.0.1:5000',
       'https://localhost:3000', // HTTPS versions
       'https://127.0.0.1:3000',
+      'https://blog-management-system-nu.vercel.app', // Production frontend
       process.env.FRONTEND_URL
     ].filter(Boolean);
 
