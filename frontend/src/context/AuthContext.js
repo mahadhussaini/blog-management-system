@@ -9,6 +9,15 @@ axios.defaults.baseURL = isDevelopment
   ? (process.env.REACT_APP_API_URL || '') 
   : (process.env.REACT_APP_API_URL || 'http://localhost:5000');
 
+// Add a runtime safety net for production in case env wasn't injected
+if (!isDevelopment) {
+  const vercelHosted = typeof window !== 'undefined' && window.location.hostname.endsWith('vercel.app');
+  if ((!axios.defaults.baseURL || axios.defaults.baseURL.startsWith('http://localhost')) && vercelHosted) {
+    // Fallback to known Render backend URL
+    axios.defaults.baseURL = 'https://blog-management-system-7qqg.onrender.com';
+  }
+}
+
 // Add token to requests if available
 axios.interceptors.request.use(
   (config) => {
@@ -25,7 +34,7 @@ axios.interceptors.request.use(
         url: config.url,
         fullUrl: config.baseURL ? `${config.baseURL}${config.url}` : `Relative: ${config.url}`,
         baseURL: config.baseURL || 'None (relative)',
-        origin: window.location.origin,
+        origin: typeof window !== 'undefined' ? window.location.origin : 'no-window',
         headers: {
           ...config.headers,
           Authorization: config.headers.Authorization ? '[PRESENT]' : '[NOT SET]'
@@ -102,11 +111,11 @@ const initialState = {
 };
 
 export const AuthProvider = ({ children }) => {
-  // Configure axios baseURL based on environment
+  // Configure axios baseURL only for development (to use CRA proxy). Do not override in production.
   useEffect(() => {
-    // For development with proxy, always use relative URLs
-    // This allows the React dev server proxy to handle API routing
-    axios.defaults.baseURL = '';
+    if (isDevelopment) {
+      axios.defaults.baseURL = '';
+    }
   }, []);
 
   const [state, dispatch] = useReducer(authReducer, initialState);
